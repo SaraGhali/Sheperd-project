@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Sheperd.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 dir="rtl">أصناف المخزن</h2>
+
+<p>
+    @Html.ActionLink("إضافة صنق جديد", "Create")
+</p>
+<table class="table table-bordered table-primary">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.productId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.buyingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sellingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productPlace)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.productId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.buyingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sellingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productPlace)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit","Products",new { id=item.productId })" class="btn btn-primary">Edit</a>
+            <a href="@Url.Action("Details","Products",new { id = item.productId })" class="btn btn-success">Details</a>
+            <a href="@Url.Action("Delete","Products",new { id = item.productId })" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<a href="~/Home/Index"><i class="fa fa-arrow-circle-left fa-3x">back</i></a>

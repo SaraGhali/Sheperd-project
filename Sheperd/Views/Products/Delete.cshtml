@@ -1,0 +1,77 @@
+﻿@model Sheperd.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div dir="rtl">
+    <h3>أنت عبيط 😂😂 هتمسح بجد ؟؟؟</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.productId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.productName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.buyingPrice)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.buyingPrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.sellingPrice)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sellingPrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.productQuantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productQuantity)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.productDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productDescription)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.productPlace)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productPlace)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+
+</div>

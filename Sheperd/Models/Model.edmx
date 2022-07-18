@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SheperdModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FatoraDetails">
+          <Key>
+            <PropertyRef Name="fatoraDetailsId" />
+          </Key>
+          <Property Name="fatoraDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fatoraId" Type="int" />
+          <Property Name="productId" Type="int" />
+          <Property Name="productName" Type="nvarchar" MaxLength="50" />
+          <Property Name="productQuantity" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SellingPrice" Type="money" Nullable="false" />
+          <Property Name="totalMoney" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="nvarchar" MaxLength="50" />
+          <Property Name="buyingPrice" Type="money" />
+          <Property Name="sellingPrice" Type="money" />
+          <Property Name="productQuantity" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="productDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="productPlace" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="fatoraId" />
+          </Key>
+          <Property Name="fatoraId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fatoraDate" Type="datetime" />
+          <Property Name="clientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="rasedSabek" Type="money" />
+        </EntityType>
+        <Association Name="FK__FatoraDet__fator__571DF1D5">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1" />
+          <End Role="FatoraDetails" Type="Self.FatoraDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="fatoraId" />
+            </Principal>
+            <Dependent Role="FatoraDetails">
+              <PropertyRef Name="fatoraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SheperdModelStoreContainer">
+          <EntitySet Name="FatoraDetails" EntityType="Self.FatoraDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FatoraDet__fator__571DF1D5" Association="Self.FK__FatoraDet__fator__571DF1D5">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="FatoraDetails" EntitySet="FatoraDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SheperdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SheperdEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="FatoraDetails" EntityType="SheperdModel.FatoraDetail" />
+          <EntitySet Name="Sales" EntityType="SheperdModel.Sale" />
+          <AssociationSet Name="FK__FatoraDet__fator__571DF1D5" Association="SheperdModel.FK__FatoraDet__fator__571DF1D5">
+            <End Role="Sale" EntitySet="Sales" />
+            <End Role="FatoraDetail" EntitySet="FatoraDetails" />
+          </AssociationSet>
+          <EntitySet Name="Products" EntityType="SheperdModel.Product" />
+        </EntityContainer>
+        <EntityType Name="FatoraDetail">
+          <Key>
+            <PropertyRef Name="fatoraDetailsId" />
+          </Key>
+          <Property Name="fatoraDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fatoraId" Type="Int32" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="productName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="productQuantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SellingPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="totalMoney" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Sale" Relationship="SheperdModel.FK__FatoraDet__fator__571DF1D5" FromRole="FatoraDetail" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="fatoraId" />
+          </Key>
+          <Property Name="fatoraId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fatoraDate" Type="DateTime" Precision="3" />
+          <Property Name="clientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rasedSabek" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="FatoraDetails" Relationship="SheperdModel.FK__FatoraDet__fator__571DF1D5" FromRole="Sale" ToRole="FatoraDetail" />
+        </EntityType>
+        <Association Name="FK__FatoraDet__fator__571DF1D5">
+          <End Type="SheperdModel.Sale" Role="Sale" Multiplicity="0..1" />
+          <End Type="SheperdModel.FatoraDetail" Role="FatoraDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="fatoraId" />
+            </Principal>
+            <Dependent Role="FatoraDetail">
+              <PropertyRef Name="fatoraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="buyingPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="sellingPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="productQuantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="productDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="productPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SheperdModelStoreContainer" CdmEntityContainer="SheperdEntities" >
+          <EntitySetMapping Name="FatoraDetails">
+            <EntityTypeMapping TypeName="SheperdModel.FatoraDetail">
+              <MappingFragment StoreEntitySet="FatoraDetails">
+                <ScalarProperty Name="totalMoney" ColumnName="totalMoney" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="fatoraId" ColumnName="fatoraId" />
+                <ScalarProperty Name="fatoraDetailsId" ColumnName="fatoraDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="SheperdModel.Sale">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="rasedSabek" ColumnName="rasedSabek" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="fatoraDate" ColumnName="fatoraDate" />
+                <ScalarProperty Name="fatoraId" ColumnName="fatoraId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SheperdModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="productPlace" ColumnName="productPlace" />
+                <ScalarProperty Name="productDescription" ColumnName="productDescription" />
+                <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+                <ScalarProperty Name="sellingPrice" ColumnName="sellingPrice" />
+                <ScalarProperty Name="buyingPrice" ColumnName="buyingPrice" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
